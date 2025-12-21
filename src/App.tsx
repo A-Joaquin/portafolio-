@@ -14,7 +14,7 @@ export default function App() {
       <Sidebar />
 
       {/* Main Content Area with Black Header */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col md:ml-[220px]">
         {/* Black Header with Filters */}
         <div className="bg-black px-8 md:px-[60px] py-6">
           <div className="flex flex-wrap gap-4">
