@@ -10,7 +10,7 @@ const projects = [
     alt: 'LMS NEWSCHOOL',
     title: 'LMS NEWSCHOOL',
     description: 'A LEARNING MANAGEMENT SYSTEM (LMS) FOR ONLINE EDUCATION',
-    categories: ['Student of Systems engineer', 'Frontend']
+    categories: ['Student of Systems engineer','Backend']
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const projects = [
     alt: 'LMS NEWSCHOOL',
     title: 'LMS NEWSCHOOL',
     description: 'A LEARNING MANAGEMENT SYSTEM (LMS) FOR ONLINE EDUCATION',
-    categories: ['Student of Systems engineer', 'Frontend']
+    categories: ['Student of Systems engineer','Backend']
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const projects = [
     alt: 'LMS NEWSCHOOL',
     title: 'LMS NEWSCHOOL',
     description: 'A LEARNING MANAGEMENT SYSTEM (LMS) FOR ONLINE EDUCATION',
-    categories: ['Student of Systems engineer', 'Frontend']
+    categories: ['Student of Systems engineer','Backend']
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ const projects = [
     alt: 'App gusto total menu',
     title: 'settings gusto total',
     description: 'app gusto total settings',
-    categories: ['Student of Systems engineer', 'Frontend', 'Backend']
+    categories: ['Student of Systems engineer', 'Frontend']
   }
 ];
 
