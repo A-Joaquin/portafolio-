@@ -8,54 +8,72 @@ const projects = [
     id: 1,
     image: 'https://images.unsplash.com/photo-1686436050017-5bac329b4171?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZWFsaXN0aWMlMjBleWUlMjBkcmF3aW5nJTIwaWxsdXN0cmF0aW9ufGVufDF8fHx8MTc2NjI4MDM2OXww&ixlib=rb-4.1.0&q=80&w=600',
     alt: 'Eye illustration with pen',
+    title: 'Eye Illustration',
+    description: 'Realistic eye drawing with pen techniques',
     categories: ['Student of Systems engineer', 'Frontend']
   },
   {
     id: 2,
     image: 'https://images.unsplash.com/photo-1605108222700-0d605d9ebafe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBhcHAlMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzY2MTc1MDMwfDA&ixlib=rb-4.1.0&q=80&w=600',
     alt: 'Course platform UI',
+    title: 'Course Platform',
+    description: 'Mobile app interface for online learning',
     categories: ['Student of Systems engineer', 'Frontend']
   },
   {
     id: 3,
     image: exampleImage,
     alt: 'Portfolio design showcase',
+    title: 'Portfolio Design',
+    description: 'Modern portfolio showcase design',
     categories: ['Student of Systems engineer', 'Frontend']
   },
   {
     id: 4,
     image: 'https://images.unsplash.com/photo-1618761714954-0b8cd0026356?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWIlMjBkZXNpZ24lMjBpbnRlcmZhY2UlMjB1aXxlbnwxfHx8fDE3NjYyODAzNzB8MA&ixlib=rb-4.1.0&q=80&w=600',
     alt: 'Web design interface',
+    title: 'Web Design UI',
+    description: 'Professional web design interface',
     categories: ['Student of Systems engineer', 'Frontend']
   },
   {
     id: 5,
     image: 'https://images.unsplash.com/photo-1639221314358-2291fb903405?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwaXhlbCUyMGFydCUyMHR5cG9ncmFwaHl8ZW58MXx8fHwxNzY2MjgwMzcwfDA&ixlib=rb-4.1.0&q=80&w=600',
     alt: 'MAJOR MINOR pixel art',
+    title: 'MAJOR MINOR',
+    description: 'Pixel art typography project',
     categories: ['Student of Systems engineer', 'Frontend', 'Backend']
   },
   {
     id: 6,
     image: 'https://images.unsplash.com/photo-1758240931165-60242e5ce08c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkYXNoYm9hcmQlMjBkZXNpZ24lMjBtb2Rlcm58ZW58MXx8fHwxNzY2MjgwMzcxfDA&ixlib=rb-4.1.0&q=80&w=600',
     alt: 'Dashboard interface',
+    title: 'Dashboard Design',
+    description: 'Modern dashboard interface',
     categories: ['Student of Systems engineer', 'Backend']
   },
   {
     id: 7,
     image: 'https://images.unsplash.com/photo-1766062854576-656159bfb41a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkYXJrJTIwYW5pbWUlMjBtYW5nYSUyMGFydHxlbnwxfHx8fDE3NjYyODAzNzB8MA&ixlib=rb-4.1.0&q=80&w=600',
     alt: 'Dark artistic illustration',
+    title: 'Dark Illustration',
+    description: 'Artistic dark anime manga style',
     categories: ['Student of Systems engineer', 'Backend']
   },
   {
     id: 8,
     image: 'https://images.unsplash.com/photo-1729575846515-5178676b963e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwZGVzaWduJTIwd2Vic2l0ZXxlbnwxfHx8fDE3NjYyODAzNzJ8MA&ixlib=rb-4.1.0&q=80&w=600',
     alt: 'Minimalist design',
+    title: 'Minimalist Design',
+    description: 'Clean and minimal website design',
     categories: ['Student of Systems engineer', 'Backend']
   },
   {
     id: 9,
     image: 'https://images.unsplash.com/photo-1758472712764-4b746ea18d9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYW50YXN5JTIwaWxsdXN0cmF0aW9uJTIwZGFya3xlbnwxfHx8fDE3NjYyODAzNzJ8MA&ixlib=rb-4.1.0&q=80&w=600',
     alt: 'Visual design work',
+    title: 'Visual Design',
+    description: 'Creative visual design work',
     categories: ['Student of Systems engineer', 'Backend']
   }
 ];
@@ -90,14 +108,28 @@ export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
                   damping: 30
                 }
               }}
-              className="overflow-hidden bg-white shadow-md group cursor-pointer transform transition-all hover:scale-105 hover:shadow-xl"
+              className="overflow-hidden bg-white shadow-md group cursor-pointer transform transition-all hover:scale-105 hover:shadow-xl relative"
               style={{ borderRadius: '8px' }}
             >
               <ImageWithFallback
                 src={project.image}
                 alt={project.alt}
-                className="w-full h-auto object-cover transition-opacity group-hover:opacity-90"
+                className="w-full h-auto object-cover transition-opacity"
               />
+              {/* Overlay on hover */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center"
+              >
+                <h3 className="text-white text-lg font-bold text-center mb-2 px-4">
+                  {project.title}
+                </h3>
+                <p className="text-white/90 text-sm text-center px-4">
+                  {project.description}
+                </p>
+              </motion.div>
             </motion.div>
           ))}
         </Masonry>
@@ -117,14 +149,28 @@ export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
                   damping: 30
                 }
               }}
-              className="overflow-hidden bg-white shadow-md group cursor-pointer transform transition-all hover:scale-105 hover:shadow-xl"
+              className="overflow-hidden bg-white shadow-md group cursor-pointer transform transition-all hover:scale-105 hover:shadow-xl relative"
               style={{ borderRadius: '8px' }}
             >
               <ImageWithFallback
                 src={project.image}
                 alt={project.alt}
-                className="w-full h-auto object-cover transition-opacity group-hover:opacity-90"
+                className="w-full h-auto object-cover transition-opacity"
               />
+              {/* Overlay on hover */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center"
+              >
+                <h3 className="text-white text-lg font-bold text-center mb-2 px-4">
+                  {project.title}
+                </h3>
+                <p className="text-white/90 text-sm text-center px-4">
+                  {project.description}
+                </p>
+              </motion.div>
             </motion.div>
           ))}
         </Masonry>
