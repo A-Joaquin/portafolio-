@@ -28,13 +28,13 @@ export function Sidebar() {
             href="#contacto" 
             className="font-mono text-white no-underline hover:opacity-70 transition-opacity text-lg"
           >
-            Contacto
+            Contact
           </a>
           <a 
             href="#sobre-mi" 
             className="font-mono text-white no-underline hover:opacity-70 transition-opacity text-lg"
           >
-            Sobre mí
+            About Me
           </a>
         </nav>
       </div>
