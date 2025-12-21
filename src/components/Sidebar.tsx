@@ -1,7 +1,7 @@
 export function Sidebar() {
   return (
-    <aside className="w-full md:w-[220px] bg-black text-white flex-shrink-0 min-h-[300px] md:min-h-screen sticky top-0">
-      <div className="flex flex-col h-full py-16 px-8 md:py-20 md:px-8">
+    <aside className="w-full md:w-[220px] bg-black text-white flex-shrink-0 min-h-[300px] md:min-h-screen md:sticky md:top-0">
+      <div className="flex flex-col py-16 px-8 md:py-20 md:px-8 h-full">
         {/* Branding */}
         <div className="mb-12">
           <h1 

@@ -6,75 +6,43 @@ import exampleImage from 'figma:asset/f085b567c4f9eedda0dec482792b69de95b96c6a.p
 const projects = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1686436050017-5bac329b4171?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZWFsaXN0aWMlMjBleWUlMjBkcmF3aW5nJTIwaWxsdXN0cmF0aW9ufGVufDF8fHx8MTc2NjI4MDM2OXww&ixlib=rb-4.1.0&q=80&w=600',
-    alt: 'Eye illustration with pen',
-    title: 'Eye Illustration',
-    description: 'Realistic eye drawing with pen techniques',
+    image: '/imagenesProyectos/5.jpg',
+    alt: 'LMS NEWSCHOOL',
+    title: 'LMS NEWSCHOOL',
+    description: 'A LEARNING MANAGEMENT SYSTEM (LMS) FOR ONLINE EDUCATION',
     categories: ['Student of Systems engineer', 'Frontend']
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1605108222700-0d605d9ebafe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBhcHAlMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzY2MTc1MDMwfDA&ixlib=rb-4.1.0&q=80&w=600',
-    alt: 'Course platform UI',
-    title: 'Course Platform',
-    description: 'Mobile app interface for online learning',
+    image: '/imagenesProyectos/6.jpg',
+    alt: 'LMS NEWSCHOOL',
+    title: 'LMS NEWSCHOOL',
+    description: 'A LEARNING MANAGEMENT SYSTEM (LMS) FOR ONLINE EDUCATION',
     categories: ['Student of Systems engineer', 'Frontend']
   },
   {
     id: 3,
-    image: exampleImage,
-    alt: 'Portfolio design showcase',
-    title: 'Portfolio Design',
-    description: 'Modern portfolio showcase design',
+    image: '/imagenesProyectos/10.jpg',
+    alt: 'LMS NEWSCHOOL',
+    title: 'LMS NEWSCHOOL',
+    description: 'A LEARNING MANAGEMENT SYSTEM (LMS) FOR ONLINE EDUCATION',
     categories: ['Student of Systems engineer', 'Frontend']
   },
   {
     id: 4,
-    image: 'https://images.unsplash.com/photo-1618761714954-0b8cd0026356?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWIlMjBkZXNpZ24lMjBpbnRlcmZhY2UlMjB1aXxlbnwxfHx8fDE3NjYyODAzNzB8MA&ixlib=rb-4.1.0&q=80&w=600',
-    alt: 'Web design interface',
-    title: 'Web Design UI',
-    description: 'Professional web design interface',
+    image: '/imagenesProyectos/unnamed..jpg',
+    alt: 'App gusto total menu',
+    title: 'menu gusto total',
+    description: 'App menu design for Gusto Total restaurant',
     categories: ['Student of Systems engineer', 'Frontend']
   },
   {
     id: 5,
-    image: 'https://images.unsplash.com/photo-1639221314358-2291fb903405?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwaXhlbCUyMGFydCUyMHR5cG9ncmFwaHl8ZW58MXx8fHwxNzY2MjgwMzcwfDA&ixlib=rb-4.1.0&q=80&w=600',
-    alt: 'MAJOR MINOR pixel art',
-    title: 'MAJOR MINOR',
-    description: 'Pixel art typography project',
+    image: '/imagenesProyectos/unnamed.jpg',
+    alt: 'App gusto total menu',
+    title: 'settings gusto total',
+    description: 'app gusto total settings',
     categories: ['Student of Systems engineer', 'Frontend', 'Backend']
-  },
-  {
-    id: 6,
-    image: 'https://images.unsplash.com/photo-1758240931165-60242e5ce08c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkYXNoYm9hcmQlMjBkZXNpZ24lMjBtb2Rlcm58ZW58MXx8fHwxNzY2MjgwMzcxfDA&ixlib=rb-4.1.0&q=80&w=600',
-    alt: 'Dashboard interface',
-    title: 'Dashboard Design',
-    description: 'Modern dashboard interface',
-    categories: ['Student of Systems engineer', 'Backend']
-  },
-  {
-    id: 7,
-    image: 'https://images.unsplash.com/photo-1766062854576-656159bfb41a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkYXJrJTIwYW5pbWUlMjBtYW5nYSUyMGFydHxlbnwxfHx8fDE3NjYyODAzNzB8MA&ixlib=rb-4.1.0&q=80&w=600',
-    alt: 'Dark artistic illustration',
-    title: 'Dark Illustration',
-    description: 'Artistic dark anime manga style',
-    categories: ['Student of Systems engineer', 'Backend']
-  },
-  {
-    id: 8,
-    image: 'https://images.unsplash.com/photo-1729575846515-5178676b963e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwZGVzaWduJTIwd2Vic2l0ZXxlbnwxfHx8fDE3NjYyODAzNzJ8MA&ixlib=rb-4.1.0&q=80&w=600',
-    alt: 'Minimalist design',
-    title: 'Minimalist Design',
-    description: 'Clean and minimal website design',
-    categories: ['Student of Systems engineer', 'Backend']
-  },
-  {
-    id: 9,
-    image: 'https://images.unsplash.com/photo-1758472712764-4b746ea18d9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYW50YXN5JTIwaWxsdXN0cmF0aW9uJTIwZGFya3xlbnwxfHx8fDE3NjYyODAzNzJ8MA&ixlib=rb-4.1.0&q=80&w=600',
-    alt: 'Visual design work',
-    title: 'Visual Design',
-    description: 'Creative visual design work',
-    categories: ['Student of Systems engineer', 'Backend']
   }
 ];
 
