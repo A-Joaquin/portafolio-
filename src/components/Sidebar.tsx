@@ -31,7 +31,7 @@ export function Sidebar() {
             Contact
           </a>
           <a 
-            href="#sobre-mi" 
+            href="#about" 
             className="font-mono text-white no-underline hover:opacity-70 transition-opacity text-lg"
           >
             About Me
