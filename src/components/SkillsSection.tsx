@@ -1,4 +1,9 @@
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+
 export function SkillsSection() {
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+
   const skills = [
     { name: 'Angular', color: '#DD0031', description: 'Intermediate: Development of scalable front-end applications using Angular, with component-based architecture, services, routing, and reactive forms.', svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5L3.5 5.5L5 17.5L12 21.5L19 17.5L20.5 5.5L12 2.5M12 6V6L7.5 7.5L8.5 13H15.5L16.5 7.5L12 6M10 10H14L13.5 13H10.5L10 10Z"/></svg>' },
     { name: 'Django', color: '#092E20', description: 'Basic: Backend development with Django for data processing, basic data analysis, input validation, and REST-style backend logic.', svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.146 0h3.924v18.166c-2.013.382-3.491.535-5.096.535-4.791 0-7.288-2.166-7.288-6.32 0-4.002 2.65-6.6 6.753-6.6.637 0 1.121.05 1.707.203zm0 9.143a3.894 3.894 0 00-1.325-.204c-1.988 0-3.134 1.223-3.134 3.364 0 2.09 1.096 3.236 3.109 3.236.433 0 .79-.025 1.35-.102V9.142zM21.314 6.06v9.097c0 3.134-.229 4.638-.917 5.937-.637 1.249-1.478 2.039-3.211 2.905l-3.644-1.733c1.733-.815 2.574-1.53 3.109-2.625.561-1.121.739-2.421.739-5.835V6.059h3.924zM17.39.021h3.924v4.026H17.39z"/></svg>' },
@@ -19,70 +24,74 @@ export function SkillsSection() {
         Skills
       </h2>
       
-      <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-        {skills.map((skill) => (
-          <div
-            key={skill.name}
-            className="relative flex flex-col items-center justify-center p-4 bg-white cursor-pointer transition-all duration-300 overflow-hidden"
-            style={{ 
-              minHeight: '140px',
-              backgroundColor: '#FFFFFF'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#1a1a1a';
-              const iconDiv = e.currentTarget.querySelector('[data-icon]') as HTMLElement;
-              if (iconDiv) {
-                iconDiv.style.transform = 'scale(0.5) translateY(-30px)';
-                iconDiv.style.color = '#FFFFFF';
-              }
-              const nameSpan = e.currentTarget.querySelector('[data-name]') as HTMLElement;
-              if (nameSpan) {
-                nameSpan.style.display = 'none';
-              }
-              const descSpan = e.currentTarget.querySelector('[data-desc]') as HTMLElement;
-              if (descSpan) {
-                descSpan.style.display = 'block';
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = '#FFFFFF';
-              const iconDiv = e.currentTarget.querySelector('[data-icon]') as HTMLElement;
-              if (iconDiv) {
-                iconDiv.style.transform = 'scale(1) translateX(0) translateY(0)';
-                iconDiv.style.color = skill.color;
-              }
-              const nameSpan = e.currentTarget.querySelector('[data-name]') as HTMLElement;
-              if (nameSpan) {
-                nameSpan.style.display = 'block';
-              }
-              const descSpan = e.currentTarget.querySelector('[data-desc]') as HTMLElement;
-              if (descSpan) {
-                descSpan.style.display = 'none';
-              }
-            }}
-          >
-            <div 
-              data-icon="true"
-              className="w-16 h-16 mb-2 flex items-center justify-center transition-all duration-300"
-              style={{ color: skill.color }}
-              dangerouslySetInnerHTML={{ __html: skill.svg }}
-            />
-            <span 
-              data-name="true"
-              className="font-mono text-xs text-center transition-colors duration-300"
-              style={{ color: '#000000' }}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto px-4">
+        {skills.map((skill) => {
+          const isHovered = hoveredSkill === skill.name;
+          
+          return (
+            <motion.div
+              layout
+              key={skill.name}
+              // ACTIVADOR MÓVIL: Cuando la tarjeta pasa por el centro de la pantalla
+              onViewportEnter={() => setHoveredSkill(skill.name)}
+              // MARGEN DE ACTIVACIÓN: Define la zona central ("-40% 0px -40% 0px" significa el 20% del centro)
+              viewport={{ margin: "-40% 0px -40% 0px", amount: 0.5 }}
+              
+              // ACTIVADOR DESKTOP: Hover tradicional
+              onMouseEnter={() => setHoveredSkill(skill.name)}
+              onMouseLeave={() => setHoveredSkill(null)}
+              
+              transition={{ layout: { type: "spring", stiffness: 300, damping: 30 } }}
+              className="relative flex flex-col items-center justify-center p-4 cursor-pointer overflow-hidden rounded-lg shadow-sm hover:shadow-xl"
+              animate={{
+                backgroundColor: isHovered ? '#1a1a1a' : '#FFFFFF',
+                scale: isHovered ? 1.05 : 1
+              }}
+              style={{ minHeight: '160px' }}
             >
-              {skill.name}
-            </span>
-            <span 
-              data-desc="true"
-              className="font-mono text-xs text-center transition-colors duration-300"
-              style={{ color: '#FFFFFF', display: 'none' }}
-            >
-              {skill.description}
-            </span>
-          </div>
-        ))}
+              <motion.div
+                layout="position"
+                className="w-16 h-16 mb-2 flex items-center justify-center"
+                animate={{
+                  scale: isHovered ? 0.6 : 1,
+                  y: isHovered ? -10 : 0,
+                  color: isHovered ? '#FFFFFF' : skill.color
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                dangerouslySetInnerHTML={{ __html: skill.svg }}
+              />
+
+              <div className="relative w-full text-center flex items-center justify-center">
+                <AnimatePresence mode="wait">
+                  {!isHovered ? (
+                    <motion.span
+                      key="name"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="font-mono text-xs block"
+                      style={{ color: '#000000' }}
+                    >
+                      {skill.name}
+                    </motion.span>
+                  ) : (
+                    <motion.p
+                      key="description"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      className="text-white text-xs px-2"
+                    >
+                      {skill.description}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );
