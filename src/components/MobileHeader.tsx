@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 export function MobileHeader() {
   const [open, setOpen] = useState(false);
+
   useEffect(() => {
     const css = `@media (max-width: 768px){body{padding-top:64px!important;}aside{display:none!important;}}`;
     const id = 'mobile-header-css';
@@ -17,7 +18,8 @@ export function MobileHeader() {
   return (
     <>
       <header
-        className="md:hidden"
+        // CAMBIO 1: Agregamos flex y alineación aquí, junto con md:hidden
+        className="flex items-center justify-between md:hidden" 
         style={{
           position: 'fixed',
           top: 0,
@@ -26,9 +28,8 @@ export function MobileHeader() {
           height: '64px',
           backgroundColor: '#000000',
           color: '#ffffff',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
+          // CAMBIO 2: Eliminé display, alignItems y justifyContent de aquí
+          // para que no sobrescriban al 'md:hidden'
           padding: '0 16px',
           zIndex: 1000,
         }}
@@ -123,4 +124,3 @@ export function MobileHeader() {
     </>
   );
 }
-
