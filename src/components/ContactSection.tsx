@@ -1,5 +1,9 @@
+import React from 'react';
+import { MobileHeader } from './MobileHeader';
 export function ContactSection() {
   return (
+    <>
+    <MobileHeader />
     <section id="contacto" className="mt-32 max-w-3xl mx-auto">
       <h2
         className="font-mono text-center mb-12 text-black"
@@ -56,5 +60,6 @@ export function ContactSection() {
         </div>
       </div>
     </section>
+    </>
   );
 }
