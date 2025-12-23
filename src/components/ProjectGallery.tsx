@@ -32,7 +32,7 @@ const projects = [
     id: 4,
     image: '/imagenesProyectos/unnamed..jpg',
     alt: 'App gusto total menu',
-    title: 'menu gusto total',
+    title: 'Menu app gusto total',
     description: 'App menu design for Gusto Total restaurant',
     categories: ['Student of Systems engineer', 'Frontend']
   },
@@ -40,7 +40,7 @@ const projects = [
     id: 5,
     image: '/imagenesProyectos/unnamed.jpg',
     alt: 'App gusto total menu',
-    title: 'settings gusto total',
+    title: 'Settings app gusto total',
     description: 'app gusto total settings',
     categories: ['Student of Systems engineer', 'Frontend']
   }
@@ -54,7 +54,6 @@ export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
-  // Ordenar proyectos: primero los que pertenecen a la categoría activa
   const sortedProjects = [...projects].sort((a, b) => {
     const aHasCategory = a.categories.includes(activeFilter);
     const bHasCategory = b.categories.includes(activeFilter);
@@ -70,113 +69,133 @@ export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
 
   return (
     <div className="mb-16">
-      {/* Mobile: 1 column */}
+      
+      {/* ==============================================
+          MÓVIL: Estilo SPLIT (Igual a PC) con Scroll Trigger
+         ============================================== */}
       <div className="block md:hidden">
         <Masonry columnsCount={1} gutter="24px">
-          {sortedProjects.map((project) => (
-            <motion.div
-              key={project.id}
-              layout
-              transition={{
-                layout: {
-                  type: "spring",
-                  stiffness: 350,
-                  damping: 30
-                }
-              }}
-              onClick={() => handleProjectClick(project.id)}
-              onMouseEnter={() => setHoveredProject(project.id)}
-              onMouseLeave={() => setHoveredProject(null)}
-              // CAMBIO 1: 'group' añadido y 'bg-white' cambiado a 'bg-black'
-              className="group overflow-hidden bg-black shadow-md cursor-pointer transform transition-all hover:scale-105 hover:shadow-xl relative"
-              style={{ borderRadius: '8px' }}
-            >
-              <ImageWithFallback
-                src={project.image}
-                alt={project.alt}
-                // CAMBIO 2: Transición de opacidad añadida al hover del grupo
-                className="w-full h-auto object-cover transition-opacity duration-300 group-hover:opacity-50"
-              />
+          {sortedProjects.map((project) => {
+            const isSelected = selectedProject === project.id;
 
-              {/* Overlay (Se mantiene igual, aparece sobre la imagen ya oscurecida) */}
-              <div
-                className={`absolute inset-0 bg-black/60 flex flex-col items-center justify-center transition-opacity duration-300 ${
-                  hoveredProject === project.id || selectedProject === project.id ? 'opacity-100' : 'opacity-0'
-                }`}
+            return (
+              <motion.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "50px" }}
+                onClick={() => handleProjectClick(project.id)}
+                className="cursor-pointer group"
               >
-                {selectedProject === project.id ? (
-                  <>
-                    <h3 className="text-white text-xl font-bold text-center mb-4 px-4">
-                      {project.title}
-                    </h3>
-                    <p className="text-white text-white/90 text-base text-center px-4">
-                      {project.description}
-                    </p>
-                  </>
-                ) : (
-                  <p className="text-white text-base font-medium">
-                    Haz click para detalles
-                  </p>
-                )}
-              </div>
-            </motion.div>
-          ))}
+                {/* 1. IMAGEN (Limpia, sin oscurecer) */}
+                <div className={`relative overflow-hidden shadow-md transition-all duration-300 rounded-t-lg`}>
+                  <ImageWithFallback
+                    src={project.image}
+                    alt={project.alt}
+                    className="block w-full h-auto object-cover"
+                  />
+                </div>
+
+                {/* 2. CAJA DE DETALLES (Aparece al llegar al final) */}
+                <motion.div
+                  // Estado inicial: Oculto
+                  initial={{ height: 0, opacity: 0 }}
+                  // Trigger: Cuando esta parte del componente entra en pantalla (bottom)
+                  whileInView={{ 
+                    height: 'auto', 
+                    opacity: 1 
+                  }}
+                  // Configuración clave: Se activa cuando el elemento está entrando bien en la pantalla
+                  // 'amount: 0.1' significa que apenas asome el final, se dispara.
+                  viewport={{ amount: 0.1 }} 
+                  transition={{ duration: 0.4, ease: 'easeOut' }}
+                  className="bg-black shadow-md overflow-hidden rounded-b-lg"
+                >
+                  <div className="p-4 flex flex-col items-center justify-center text-center">
+                    {isSelected ? (
+                      // Contenido al hacer CLICK (Expandido)
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                      >
+                        <h3 className="text-white text-xl font-bold mb-2">{project.title}</h3>
+                        <p className="text-white text-white/90 text-sm">{project.description}</p>
+                      </motion.div>
+                    ) : (
+                      // Contenido por defecto (aparece con el scroll)
+                      <p className="text-white font-medium border-b border-white pb-1 inline-block">
+                        Haz click para detalles
+                      </p>
+                    )}
+                  </div>
+                </motion.div>
+              </motion.div>
+            );
+          })}
         </Masonry>
       </div>
 
-      {/* Desktop and Tablet: 3 columns */}
+      {/* ==============================================
+          DESKTOP: Estilo SPLIT (Hover Trigger)
+         ============================================== */}
       <div className="hidden md:block">
         <Masonry columnsCount={3} gutter="40px">
-          {sortedProjects.map((project) => (
-            <motion.div
-              key={project.id}
-              layout
-              transition={{
-                layout: {
-                  type: "spring",
-                  stiffness: 350,
-                  damping: 30
-                }
-              }}
-              onClick={() => handleProjectClick(project.id)}
-              onMouseEnter={() => setHoveredProject(project.id)}
-              onMouseLeave={() => setHoveredProject(null)}
-              // CAMBIO 1: 'group' añadido y 'bg-white' cambiado a 'bg-black'
-              className="group overflow-hidden bg-black shadow-md cursor-pointer transform transition-all hover:scale-105 hover:shadow-xl relative"
-              style={{ borderRadius: '8px' }}
-            >
-              <ImageWithFallback
-                src={project.image}
-                alt={project.alt}
-                // CAMBIO 2: Transición de opacidad añadida al hover del grupo
-                className="w-full h-auto object-cover transition-opacity duration-300 group-hover:opacity-50"
-              />
+          {sortedProjects.map((project) => {
+            const isHovered = hoveredProject === project.id;
+            const isSelected = selectedProject === project.id;
+            const showDetailsBox = isHovered || isSelected;
 
-              {/* Overlay (Se mantiene igual) */}
-              <div
-                className={`absolute inset-0 bg-black/60 flex flex-col items-center justify-center transition-opacity duration-300 ${
-                  hoveredProject === project.id || selectedProject === project.id ? 'opacity-100' : 'opacity-0'
-                }`}
+            return (
+              <motion.div
+                key={project.id}
+                layout
+                transition={{ layout: { type: "spring", stiffness: 350, damping: 30 } }}
+                onClick={() => handleProjectClick(project.id)}
+                onMouseEnter={() => setHoveredProject(project.id)}
+                onMouseLeave={() => setHoveredProject(null)}
+                className="cursor-pointer group"
               >
-                {selectedProject === project.id ? (
-                  <>
-                    <h3 className="text-white text-xl font-bold text-center mb-4 px-4">
-                      {project.title}
-                    </h3>
-                    <p className="text-white text-white/90 text-base text-center px-4">
-                      {project.description}
-                    </p>
-                  </>
-                ) : (
-                  <p className="text-white text-base font-medium">
-                    Haz click para detalles
-                  </p>
-                )}
-              </div>
-            </motion.div>
-          ))}
+                {/* Caja Imagen */}
+                <div className={`relative overflow-hidden shadow-md transition-all duration-300 ${showDetailsBox ? 'rounded-t-lg' : 'rounded-lg'}`}>
+                  <div className="transform transition-transform duration-500 group-hover:scale-105">
+                     <ImageWithFallback
+                       src={project.image}
+                       alt={project.alt}
+                       className="block w-full h-auto object-cover"
+                     />
+                  </div>
+                </div>
+
+                {/* Caja Detalles */}
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ 
+                    height: showDetailsBox ? 'auto' : 0,
+                    opacity: showDetailsBox ? 1 : 0
+                  }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  className="bg-black shadow-md overflow-hidden rounded-b-lg"
+                >
+                  <div className="p-4 flex flex-col items-center justify-center text-center">
+                    {isSelected ? (
+                      <>
+                        <h3 className="text-white text-xl font-bold mb-2">{project.title}</h3>
+                        <p className="text-white text-white/90 text-sm">{project.description}</p>
+                      </>
+                    ) : (
+                      <p className="text-white font-medium border-b border-white pb-1 inline-block">
+                        Haz click para detalles
+                      </p>
+                    )}
+                  </div>
+                </motion.div>
+              </motion.div>
+            );
+          })}
         </Masonry>
       </div>
+
     </div>
   );
 }
