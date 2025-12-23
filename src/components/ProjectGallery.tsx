@@ -1,7 +1,7 @@
+import React, { useState } from 'react';
 import Masonry from 'react-responsive-masonry';
 import { motion } from 'framer-motion';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import exampleImage from 'figma:asset/f085b567c4f9eedda0dec482792b69de95b96c6a.png';
 
 const projects = [
   {
@@ -10,7 +10,7 @@ const projects = [
     alt: 'LMS NEWSCHOOL',
     title: 'LMS NEWSCHOOL',
     description: 'A LEARNING MANAGEMENT SYSTEM (LMS) FOR ONLINE EDUCATION',
-    categories: ['Student of Systems engineer','Backend']
+    categories: ['Student of Systems engineer', 'Backend']
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const projects = [
     alt: 'LMS NEWSCHOOL',
     title: 'LMS NEWSCHOOL',
     description: 'A LEARNING MANAGEMENT SYSTEM (LMS) FOR ONLINE EDUCATION',
-    categories: ['Student of Systems engineer','Backend']
+    categories: ['Student of Systems engineer', 'Backend']
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const projects = [
     alt: 'LMS NEWSCHOOL',
     title: 'LMS NEWSCHOOL',
     description: 'A LEARNING MANAGEMENT SYSTEM (LMS) FOR ONLINE EDUCATION',
-    categories: ['Student of Systems engineer','Backend']
+    categories: ['Student of Systems engineer', 'Backend']
   },
   {
     id: 4,
@@ -51,53 +51,74 @@ interface ProjectGalleryProps {
 }
 
 export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
+  const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+
   // Ordenar proyectos: primero los que pertenecen a la categoría activa
   const sortedProjects = [...projects].sort((a, b) => {
     const aHasCategory = a.categories.includes(activeFilter);
     const bHasCategory = b.categories.includes(activeFilter);
-    
+
     if (aHasCategory && !bHasCategory) return -1;
     if (!aHasCategory && bHasCategory) return 1;
-    return 0; // Mantener orden original si ambos tienen o no tienen la categoría
+    return 0;
   });
+
+  const handleProjectClick = (projectId: number) => {
+    setSelectedProject(selectedProject === projectId ? null : projectId);
+  };
+
   return (
     <div className="mb-16">
       {/* Mobile: 1 column */}
       <div className="block md:hidden">
         <Masonry columnsCount={1} gutter="24px">
           {sortedProjects.map((project) => (
-            <motion.div 
+            <motion.div
               key={project.id}
               layout
-              transition={{ 
-                layout: { 
+              transition={{
+                layout: {
                   type: "spring",
                   stiffness: 350,
                   damping: 30
                 }
               }}
-              className="overflow-hidden bg-white shadow-md group cursor-pointer transform transition-all hover:scale-105 hover:shadow-xl relative"
+              onClick={() => handleProjectClick(project.id)}
+              onMouseEnter={() => setHoveredProject(project.id)}
+              onMouseLeave={() => setHoveredProject(null)}
+              // CAMBIO 1: 'group' añadido y 'bg-white' cambiado a 'bg-black'
+              className="group overflow-hidden bg-black shadow-md cursor-pointer transform transition-all hover:scale-105 hover:shadow-xl relative"
               style={{ borderRadius: '8px' }}
             >
               <ImageWithFallback
                 src={project.image}
                 alt={project.alt}
-                className="w-full h-auto object-cover transition-opacity"
+                // CAMBIO 2: Transición de opacidad añadida al hover del grupo
+                className="w-full h-auto object-cover transition-opacity duration-300 group-hover:opacity-50"
               />
-              {/* Overlay on hover */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-                className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center"
+
+              {/* Overlay (Se mantiene igual, aparece sobre la imagen ya oscurecida) */}
+              <div
+                className={`absolute inset-0 bg-black/60 flex flex-col items-center justify-center transition-opacity duration-300 ${
+                  hoveredProject === project.id || selectedProject === project.id ? 'opacity-100' : 'opacity-0'
+                }`}
               >
-                <h3 className="text-white text-lg font-bold text-center mb-2 px-4">
-                  {project.title}
-                </h3>
-                <p className="text-white/90 text-sm text-center px-4">
-                  {project.description}
-                </p>
-              </motion.div>
+                {selectedProject === project.id ? (
+                  <>
+                    <h3 className="text-white text-xl font-bold text-center mb-4 px-4">
+                      {project.title}
+                    </h3>
+                    <p className="text-white text-white/90 text-base text-center px-4">
+                      {project.description}
+                    </p>
+                  </>
+                ) : (
+                  <p className="text-white text-base font-medium">
+                    Haz click para detalles
+                  </p>
+                )}
+              </div>
             </motion.div>
           ))}
         </Masonry>
@@ -107,38 +128,51 @@ export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
       <div className="hidden md:block">
         <Masonry columnsCount={3} gutter="40px">
           {sortedProjects.map((project) => (
-            <motion.div 
+            <motion.div
               key={project.id}
               layout
-              transition={{ 
-                layout: { 
+              transition={{
+                layout: {
                   type: "spring",
                   stiffness: 350,
                   damping: 30
                 }
               }}
-              className="overflow-hidden bg-white shadow-md group cursor-pointer transform transition-all hover:scale-105 hover:shadow-xl relative"
+              onClick={() => handleProjectClick(project.id)}
+              onMouseEnter={() => setHoveredProject(project.id)}
+              onMouseLeave={() => setHoveredProject(null)}
+              // CAMBIO 1: 'group' añadido y 'bg-white' cambiado a 'bg-black'
+              className="group overflow-hidden bg-black shadow-md cursor-pointer transform transition-all hover:scale-105 hover:shadow-xl relative"
               style={{ borderRadius: '8px' }}
             >
               <ImageWithFallback
                 src={project.image}
                 alt={project.alt}
-                className="w-full h-auto object-cover transition-opacity"
+                // CAMBIO 2: Transición de opacidad añadida al hover del grupo
+                className="w-full h-auto object-cover transition-opacity duration-300 group-hover:opacity-50"
               />
-              {/* Overlay on hover */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-                className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center"
+
+              {/* Overlay (Se mantiene igual) */}
+              <div
+                className={`absolute inset-0 bg-black/60 flex flex-col items-center justify-center transition-opacity duration-300 ${
+                  hoveredProject === project.id || selectedProject === project.id ? 'opacity-100' : 'opacity-0'
+                }`}
               >
-                <h3 className="text-white text-lg font-bold text-center mb-2 px-4">
-                  {project.title}
-                </h3>
-                <p className="text-white/90 text-sm text-center px-4">
-                  {project.description}
-                </p>
-              </motion.div>
+                {selectedProject === project.id ? (
+                  <>
+                    <h3 className="text-white text-xl font-bold text-center mb-4 px-4">
+                      {project.title}
+                    </h3>
+                    <p className="text-white text-white/90 text-base text-center px-4">
+                      {project.description}
+                    </p>
+                  </>
+                ) : (
+                  <p className="text-white text-base font-medium">
+                    Haz click para detalles
+                  </p>
+                )}
+              </div>
             </motion.div>
           ))}
         </Masonry>
