@@ -64,46 +64,51 @@ export function AboutSection() {
     >
       <motion.h2
         variants={textVariants} // El título usa la variante de texto simple
-        className="font-mono text-center mb-12 text-black"
-        style={{ fontSize: '32px' }}
+        className="font-mono text-center mb-12"
+        style={{ fontSize: '32px', color: '#00FF41', textShadow: '0 0 15px rgba(0, 255, 65, 0.6)' }}
       >
         About Me
       </motion.h2>
 
-      {/* La tarjeta blanca usa cardVariants para animarse ella misma y coordinar a sus hijos */}
-      <motion.div 
+      {/* La tarjeta EVA usa cardVariants para animarse ella misma y coordinar a sus hijos */}
+      <motion.div
         variants={cardVariants}
-        className="bg-white p-8 md:p-12 border border-gray-200 shadow-sm"
+        className="p-8 md:p-12"
+        style={{
+          backgroundColor: '#2A0047',
+          border: '2px solid #00FF41',
+          boxShadow: '0 0 20px rgba(0, 255, 65, 0.3)'
+        }}
       >
         <div className="space-y-6">
           
           {/* Párrafo 1 */}
-          <motion.p variants={textVariants} className="font-mono text-black leading-relaxed">
-            I am a <strong>Systems Engineering student</strong> with a strong interest in 
-            software development and building practical, well-structured applications. 
-            This portfolio showcases my academic projects and my learning journey in 
+          <motion.p variants={textVariants} className="font-mono leading-relaxed" style={{ color: '#FFFFFF' }}>
+            I am a <strong style={{ color: '#00FF41' }}>Systems Engineering student</strong> with a strong interest in
+            software development and building practical, well-structured applications.
+            This portfolio showcases my academic projects and my learning journey in
             web and mobile development.
           </motion.p>
 
           {/* Párrafo 2 */}
-          <motion.p variants={textVariants} className="font-mono text-black leading-relaxed">
+          <motion.p variants={textVariants} className="font-mono leading-relaxed" style={{ color: '#FFFFFF' }}>
             I enjoy working on both frontend and backend development, focusing on clean code,
-            clear structure, and maintainable solutions. I am especially interested in 
+            clear structure, and maintainable solutions. I am especially interested in
             learning industry best practices and improving through real-world projects
             and collaboration.
           </motion.p>
 
           {/* Párrafo 3 */}
-          <motion.p variants={textVariants} className="font-mono text-black leading-relaxed">
+          <motion.p variants={textVariants} className="font-mono leading-relaxed" style={{ color: '#FFFFFF' }}>
             I have experience working with technologies such as Angular, React, Spring Boot,
             and Android development with Jetpack Compose. All projects shown here were developed
             as part of my university studies and personal practice.
           </motion.p>
 
           {/* Sección final con borde */}
-          <motion.div variants={textVariants} className="pt-6 border-t border-gray-200">
-            <h3 className="font-mono text-black mb-4">What I Work With</h3>
-            <ul className="space-y-2 font-mono text-black">
+          <motion.div variants={textVariants} className="pt-6" style={{ borderTop: '2px solid #FF6B00' }}>
+            <h3 className="font-mono mb-4" style={{ color: '#00FF41', textShadow: '0 0 8px rgba(0, 255, 65, 0.5)' }}>What I Work With</h3>
+            <ul className="space-y-2 font-mono" style={{ color: '#FFFFFF' }}>
               <li>• Web Application Development</li>
               <li>• Mobile Application Development</li>
               <li>• Frontend & Backend Fundamentals</li>

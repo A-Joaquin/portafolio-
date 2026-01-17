@@ -4,43 +4,52 @@
 
 :root {
   --font-size: 16px;
-  --background: #ffffff;
-  --foreground: oklch(0.145 0 0);
-  --card: #ffffff;
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: #030213;
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.95 0.0058 264.53);
-  --secondary-foreground: #030213;
-  --muted: #ececf0;
-  --muted-foreground: #717182;
-  --accent: #e9ebef;
-  --accent-foreground: #030213;
-  --destructive: #d4183d;
-  --destructive-foreground: #ffffff;
-  --border: rgba(0, 0, 0, 0.1);
+  /* Evangelion Color Palette */
+  --eva-purple: #3D0066;
+  --eva-purple-dark: #2A0047;
+  --eva-green: #00FF41;
+  --eva-orange: #FF6B00;
+  --eva-black: #0A0014;
+  --eva-white: #FFFFFF;
+  --eva-purple-light: #5A0099;
+
+  --background: var(--eva-purple);
+  --foreground: var(--eva-white);
+  --card: var(--eva-purple-dark);
+  --card-foreground: var(--eva-white);
+  --popover: var(--eva-purple-dark);
+  --popover-foreground: var(--eva-white);
+  --primary: var(--eva-green);
+  --primary-foreground: var(--eva-black);
+  --secondary: var(--eva-purple-light);
+  --secondary-foreground: var(--eva-green);
+  --muted: var(--eva-purple-dark);
+  --muted-foreground: #B8B8FF;
+  --accent: var(--eva-orange);
+  --accent-foreground: var(--eva-white);
+  --destructive: #FF0066;
+  --destructive-foreground: var(--eva-white);
+  --border: rgba(0, 255, 65, 0.3);
   --input: transparent;
-  --input-background: #f3f3f5;
-  --switch-background: #cbced4;
+  --input-background: var(--eva-purple-dark);
+  --switch-background: var(--eva-purple-light);
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --ring: var(--eva-green);
+  --chart-1: var(--eva-green);
+  --chart-2: var(--eva-orange);
+  --chart-3: var(--eva-purple-light);
+  --chart-4: #FF00FF;
+  --chart-5: #00FFFF;
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: #030213;
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: var(--eva-black);
+  --sidebar-foreground: var(--eva-green);
+  --sidebar-primary: var(--eva-green);
+  --sidebar-primary-foreground: var(--eva-black);
+  --sidebar-accent: var(--eva-purple-dark);
+  --sidebar-accent-foreground: var(--eva-green);
+  --sidebar-border: var(--eva-green);
+  --sidebar-ring: var(--eva-orange);
 }
 
 .dark {
@@ -189,4 +198,14 @@ html {
 
 .font-mono {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+/* NERV Custom Cursor - Ocultar cursor nativo */
+* {
+  cursor: none !important;
+}
+
+/* Asegurar que el cursor personalizado funcione en todos los elementos */
+a, button, input, textarea, select, [role="button"] {
+  cursor: none !important;
 }

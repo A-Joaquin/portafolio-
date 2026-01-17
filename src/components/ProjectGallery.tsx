@@ -10,7 +10,8 @@ const projects = [
     alt: 'LMS NEWSCHOOL',
     title: 'LMS NEWSCHOOL',
     description: 'A LEARNING MANAGEMENT SYSTEM (LMS) FOR ONLINE EDUCATION',
-    categories: ['Student of Systems engineer', 'Backend']
+    categories: ['Student of Systems engineer', 'Backend'],
+    size: 'tall' // Vertical - más alto
   },
   {
     id: 2,
@@ -18,7 +19,8 @@ const projects = [
     alt: 'LMS NEWSCHOOL',
     title: 'LMS NEWSCHOOL',
     description: 'A LEARNING MANAGEMENT SYSTEM (LMS) FOR ONLINE EDUCATION',
-    categories: ['Student of Systems engineer', 'Backend']
+    categories: ['Student of Systems engineer', 'Backend'],
+    size: 'standard'
   },
   {
     id: 3,
@@ -26,7 +28,8 @@ const projects = [
     alt: 'LMS NEWSCHOOL',
     title: 'LMS NEWSCHOOL',
     description: 'A LEARNING MANAGEMENT SYSTEM (LMS) FOR ONLINE EDUCATION',
-    categories: ['Student of Systems engineer', 'Backend']
+    categories: ['Student of Systems engineer', 'Backend'],
+    size: 'wide' // Horizontal - más ancho
   },
   {
     id: 4,
@@ -34,7 +37,8 @@ const projects = [
     alt: 'App gusto total menu',
     title: 'Menu app gusto total',
     description: 'App menu design for Gusto Total restaurant',
-    categories: ['Student of Systems engineer', 'Frontend']
+    categories: ['Student of Systems engineer', 'Frontend'],
+    size: 'standard'
   },
   {
     id: 5,
@@ -42,7 +46,8 @@ const projects = [
     alt: 'App gusto total menu',
     title: 'Settings app gusto total',
     description: 'app gusto total settings',
-    categories: ['Student of Systems engineer', 'Frontend']
+    categories: ['Student of Systems engineer', 'Frontend'],
+    size: 'tall'
   }
 ];
 
@@ -88,12 +93,19 @@ export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
                 onClick={() => handleProjectClick(project.id)}
                 className="cursor-pointer group"
               >
-                {/* 1. IMAGEN (Limpia, sin oscurecer) */}
-                <div className={`relative overflow-hidden shadow-md transition-all duration-300 rounded-t-lg`}>
+                {/* 1. IMAGEN (Limpia, sin oscurecer) - Dimensión estándar */}
+                <div
+                  className="relative overflow-hidden shadow-md transition-all duration-300 rounded-t-lg"
+                  style={{
+                    height: '350px',
+                    border: '2px solid #00FF41',
+                    borderBottom: 'none'
+                  }}
+                >
                   <ImageWithFallback
                     src={project.image}
                     alt={project.alt}
-                    className="block w-full h-auto object-cover"
+                    className="block w-full h-full object-cover"
                   />
                 </div>
 
@@ -102,15 +114,20 @@ export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
                   // Estado inicial: Oculto
                   initial={{ height: 0, opacity: 0 }}
                   // Trigger: Cuando esta parte del componente entra en pantalla (bottom)
-                  whileInView={{ 
-                    height: 'auto', 
-                    opacity: 1 
+                  whileInView={{
+                    height: 'auto',
+                    opacity: 1
                   }}
                   // Configuración clave: Se activa cuando el elemento está entrando bien en la pantalla
                   // 'amount: 0.1' significa que apenas asome el final, se dispara.
-                  viewport={{ amount: 0.1 }} 
+                  viewport={{ amount: 0.1 }}
                   transition={{ duration: 0.4, ease: 'easeOut' }}
-                  className="bg-black shadow-md overflow-hidden rounded-b-lg"
+                  className="shadow-md overflow-hidden rounded-b-lg"
+                  style={{
+                    backgroundColor: '#0A0014',
+                    border: '2px solid #00FF41',
+                    borderTop: 'none'
+                  }}
                 >
                   <div className="p-4 flex flex-col items-center justify-center text-center">
                     {isSelected ? (
@@ -119,12 +136,16 @@ export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                       >
-                        <h3 className="text-white text-xl font-bold mb-2">{project.title}</h3>
-                        <p className="text-white text-white/90 text-sm">{project.description}</p>
+                        <h3 className="text-xl font-bold mb-2" style={{ color: '#00FF41' }}>{project.title}</h3>
+                        <p className="text-sm" style={{ color: '#FFFFFF' }}>{project.description}</p>
                       </motion.div>
                     ) : (
                       // Contenido por defecto (aparece con el scroll)
-                      <p className="text-white font-medium border-b border-white pb-1 inline-block">
+                      <p className="font-medium pb-1 inline-block" style={{
+                        color: '#00FF41',
+                        borderBottom: '2px solid #FF6B00',
+                        textShadow: '0 0 8px rgba(0, 255, 65, 0.5)'
+                      }}>
                         Haz click para detalles
                       </p>
                     )}
@@ -156,13 +177,21 @@ export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
                 onMouseLeave={() => setHoveredProject(null)}
                 className="cursor-pointer group"
               >
-                {/* Caja Imagen */}
-                <div className={`relative overflow-hidden shadow-md transition-all duration-300 ${showDetailsBox ? 'rounded-t-lg' : 'rounded-lg'}`}>
-                  <div className="transform transition-transform duration-500 group-hover:scale-105">
+                {/* Caja Imagen - Dimensión estándar */}
+                <div
+                  className={`relative overflow-hidden shadow-md transition-all duration-300 ${showDetailsBox ? 'rounded-t-lg' : 'rounded-lg'}`}
+                  style={{
+                    height: '350px',
+                    border: '2px solid #00FF41',
+                    borderBottom: showDetailsBox ? 'none' : '2px solid #00FF41',
+                    boxShadow: '0 0 15px rgba(0, 255, 65, 0.3)'
+                  }}
+                >
+                  <div className="transform transition-transform duration-500 group-hover:scale-105 h-full">
                      <ImageWithFallback
                        src={project.image}
                        alt={project.alt}
-                       className="block w-full h-auto object-cover"
+                       className="block w-full h-full object-cover"
                      />
                   </div>
                 </div>
@@ -170,21 +199,30 @@ export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
                 {/* Caja Detalles */}
                 <motion.div
                   initial={{ height: 0, opacity: 0 }}
-                  animate={{ 
+                  animate={{
                     height: showDetailsBox ? 'auto' : 0,
                     opacity: showDetailsBox ? 1 : 0
                   }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
-                  className="bg-black shadow-md overflow-hidden rounded-b-lg"
+                  className="shadow-md overflow-hidden rounded-b-lg"
+                  style={{
+                    backgroundColor: '#0A0014',
+                    border: '2px solid #00FF41',
+                    borderTop: 'none'
+                  }}
                 >
                   <div className="p-4 flex flex-col items-center justify-center text-center">
                     {isSelected ? (
                       <>
-                        <h3 className="text-white text-xl font-bold mb-2">{project.title}</h3>
-                        <p className="text-white text-white/90 text-sm">{project.description}</p>
+                        <h3 className="text-xl font-bold mb-2" style={{ color: '#00FF41' }}>{project.title}</h3>
+                        <p className="text-sm" style={{ color: '#FFFFFF' }}>{project.description}</p>
                       </>
                     ) : (
-                      <p className="text-white font-medium border-b border-white pb-1 inline-block">
+                      <p className="font-medium pb-1 inline-block" style={{
+                        color: '#00FF41',
+                        borderBottom: '2px solid #FF6B00',
+                        textShadow: '0 0 8px rgba(0, 255, 65, 0.5)'
+                      }}>
                         Haz click para detalles
                       </p>
                     )}

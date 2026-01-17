@@ -20,7 +20,7 @@ export function SkillsSection() {
 
   return (
     <section id="skills" className="mt-20">
-      <h2 className="font-mono text-center mb-12 text-black" style={{ fontSize: '32px', marginTop: '80px' }}>
+      <h2 className="font-mono text-center mb-12" style={{ fontSize: '32px', marginTop: '80px', color: '#00FF41', textShadow: '0 0 15px rgba(0, 255, 65, 0.6)' }}>
         Skills
       </h2>
       
@@ -42,12 +42,14 @@ export function SkillsSection() {
               onMouseLeave={() => setHoveredSkill(null)}
               
               transition={{ layout: { type: "spring", stiffness: 300, damping: 30 } }}
-              className="relative flex flex-col items-center justify-center p-4 cursor-pointer overflow-hidden rounded-lg shadow-sm hover:shadow-xl"
+              className="relative flex flex-col items-center justify-center p-4 cursor-pointer overflow-hidden rounded-lg"
               animate={{
-                backgroundColor: isHovered ? '#1a1a1a' : '#FFFFFF',
-                scale: isHovered ? 1.05 : 1
+                backgroundColor: isHovered ? '#0A0014' : '#2A0047',
+                scale: isHovered ? 1.05 : 1,
+                borderColor: isHovered ? '#FF6B00' : '#00FF41',
+                boxShadow: isHovered ? '0 0 25px rgba(255, 107, 0, 0.6)' : '0 0 10px rgba(0, 255, 65, 0.3)'
               }}
-              style={{ minHeight: '160px' }}
+              style={{ minHeight: '160px', border: '2px solid #00FF41' }}
             >
               <motion.div
                 layout="position"
@@ -55,7 +57,8 @@ export function SkillsSection() {
                 animate={{
                   scale: isHovered ? 0.6 : 1,
                   y: isHovered ? -10 : 0,
-                  color: isHovered ? '#FFFFFF' : skill.color
+                  color: isHovered ? '#00FF41' : '#00FF41',
+                  filter: isHovered ? 'drop-shadow(0 0 8px rgba(0, 255, 65, 0.8))' : 'none'
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 dangerouslySetInnerHTML={{ __html: skill.svg }}
@@ -71,7 +74,7 @@ export function SkillsSection() {
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.2 }}
                       className="font-mono text-xs block"
-                      style={{ color: '#000000' }}
+                      style={{ color: '#00FF41', fontWeight: 'bold' }}
                     >
                       {skill.name}
                     </motion.span>
@@ -82,7 +85,8 @@ export function SkillsSection() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.3 }}
-                      className="text-white text-xs px-2"
+                      className="text-xs px-2"
+                      style={{ color: '#FFFFFF' }}
                     >
                       {skill.description}
                     </motion.p>
