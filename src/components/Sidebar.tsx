@@ -1,7 +1,7 @@
 export function Sidebar() {
   return (
     <aside className="w-full md:w-[220px] bg-black text-white flex-shrink-0 min-h-[300px]">
-      <div 
+      <div
         className="flex flex-col py-16 px-8 h-full"
         style={{
           position: 'fixed',
@@ -9,20 +9,21 @@ export function Sidebar() {
           top: 0,
           width: '220px',
           height: '100vh',
-          backgroundColor: '#000000',
+          backgroundColor: 'rgb(0, 0, 0)',
           color: '#ffffff',
           display: 'flex',
           flexDirection: 'column',
           paddingTop: '6rem',
           paddingLeft: '2rem',
-          paddingRight: '2rem'
+          paddingRight: '2rem',
+          zIndex: 10
         }}
       >
         {/* Branding */}
         <div className="mb-12" style={{ marginBottom: '4.5rem' }}>
-          <h1 
+          <h1
             className="font-mono text-white uppercase"
-            style={{ 
+            style={{
               letterSpacing: '0.1em',
               lineHeight: '1.3',
               fontSize: '2.3rem'
@@ -34,20 +35,20 @@ export function Sidebar() {
 
         {/* Navigation */}
         <nav className="flex flex-col gap-8">
-          <a 
-            href="#skills" 
+          <a
+            href="#skills"
             className="font-mono text-white no-underline hover:opacity-70 transition-opacity text-lg"
           >
             Skills
           </a>
-          <a 
-            href="#contacto" 
+          <a
+            href="#contacto"
             className="font-mono text-white no-underline hover:opacity-70 transition-opacity text-lg"
           >
             Contact
           </a>
-          <a 
-            href="#about" 
+          <a
+            href="#about"
             className="font-mono text-white no-underline hover:opacity-70 transition-opacity text-lg"
           >
             About Me

@@ -23,7 +23,7 @@ export function SkillsSection() {
       <h2 className="font-mono text-center mb-12 text-black" style={{ fontSize: '32px', marginTop: '80px' }}>
         Skills
       </h2>
-      
+
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto px-4">
         {skills.map((skill) => {
           const isHovered = hoveredSkill === skill.name;
