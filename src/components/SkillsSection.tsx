@@ -1,8 +1,22 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 export function SkillsSection() {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const { theme } = useTheme();
+
+  const colors = theme === 'light' ? {
+    title: '#000000',
+    cardBg: '#FFFFFF',
+    cardHoverBg: '#1a1a1a',
+    skillName: '#000000',
+  } : {
+    title: '#FFFFFF',
+    cardBg: '#1a1a1a',
+    cardHoverBg: '#FFFFFF',
+    skillName: '#FFFFFF',
+  };
 
   const skills = [
     { name: 'Angular', color: '#DD0031', description: 'Intermediate: Development of scalable front-end applications using Angular, with component-based architecture, services, routing, and reactive forms.', svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5L3.5 5.5L5 17.5L12 21.5L19 17.5L20.5 5.5L12 2.5M12 6V6L7.5 7.5L8.5 13H15.5L16.5 7.5L12 6M10 10H14L13.5 13H10.5L10 10Z"/></svg>' },
@@ -20,34 +34,32 @@ export function SkillsSection() {
 
   return (
     <section id="skills" className="mt-20">
-      <h2 className="font-mono text-center mb-12 text-black" style={{ fontSize: '32px', marginTop: '80px' }}>
+      <h2
+        className="font-mono text-center mb-12"
+        style={{ fontSize: '32px', marginTop: '80px', color: colors.title, transition: 'color 0.3s ease' }}
+      >
         Skills
       </h2>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto px-4">
         {skills.map((skill) => {
           const isHovered = hoveredSkill === skill.name;
-          
+
           return (
             <motion.div
               layout
               key={skill.name}
-              // ACTIVADOR MÓVIL: Cuando la tarjeta pasa por el centro de la pantalla
               onViewportEnter={() => setHoveredSkill(skill.name)}
-              // MARGEN DE ACTIVACIÓN: Define la zona central ("-40% 0px -40% 0px" significa el 20% del centro)
               viewport={{ margin: "-40% 0px -40% 0px", amount: 0.5 }}
-              
-              // ACTIVADOR DESKTOP: Hover tradicional
               onMouseEnter={() => setHoveredSkill(skill.name)}
               onMouseLeave={() => setHoveredSkill(null)}
-              
               transition={{ layout: { type: "spring", stiffness: 300, damping: 30 } }}
               className="relative flex flex-col items-center justify-center p-4 cursor-pointer overflow-hidden rounded-lg shadow-sm hover:shadow-xl"
               animate={{
-                backgroundColor: isHovered ? '#1a1a1a' : '#FFFFFF',
+                backgroundColor: isHovered ? colors.cardHoverBg : colors.cardBg,
                 scale: isHovered ? 1.05 : 1
               }}
-              style={{ minHeight: '160px' }}
+              style={{ minHeight: '160px', transition: 'box-shadow 0.3s ease' }}
             >
               <motion.div
                 layout="position"
@@ -55,7 +67,7 @@ export function SkillsSection() {
                 animate={{
                   scale: isHovered ? 0.6 : 1,
                   y: isHovered ? -10 : 0,
-                  color: isHovered ? '#FFFFFF' : skill.color
+                  color: isHovered ? (theme === 'light' ? '#FFFFFF' : '#000000') : skill.color
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 dangerouslySetInnerHTML={{ __html: skill.svg }}
@@ -71,7 +83,7 @@ export function SkillsSection() {
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.2 }}
                       className="font-mono text-xs block"
-                      style={{ color: '#000000' }}
+                      style={{ color: colors.skillName }}
                     >
                       {skill.name}
                     </motion.span>
@@ -82,7 +94,8 @@ export function SkillsSection() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.3 }}
-                      className="text-white text-xs px-2"
+                      className="text-xs px-2"
+                      style={{ color: theme === 'light' ? '#FFFFFF' : '#000000' }}
                     >
                       {skill.description}
                     </motion.p>

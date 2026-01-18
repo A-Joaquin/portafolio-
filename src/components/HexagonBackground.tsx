@@ -1,16 +1,39 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useTheme } from '../context/ThemeContext';
 
 export function HexagonBackground() {
+  const { theme } = useTheme();
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [grid, setGrid] = useState<{ id: string; x: number; y: number; col: number; row: number }[]>([]);
 
-  // Configuración de hexágonos FLAT-TOP (colores invertidos - blanco)
+  // Configuración de hexágonos FLAT-TOP
   const hexSize = 45;
   const hexWidth = hexSize * 2;
   const hexHeight = Math.sqrt(3) * hexSize;
   const horizontalSpacing = hexWidth * 0.75;
   const verticalSpacing = hexHeight;
   const glowRadius = 150;
+
+  // Colores según el tema
+  const colors = theme === 'light' ? {
+    background: '#F5F5F5',
+    baseGradient: ['#E8E8E8', '#F0F0F0', '#F5F5F5'],
+    hoverFill: '#000000',
+    hoverStroke: '#000000',
+    nearGradient: ['#777777', '#999999'],
+    normalStroke: '#FFFFFF',
+    normalTriangle: '#FFFFFF',
+    textColor: '#FFFFFF',
+  } : {
+    background: '#1a1a1a',
+    baseGradient: ['#2a2a2a', '#222222', '#1a1a1a'],
+    hoverFill: '#FFFFFF',
+    hoverStroke: '#FFFFFF',
+    nearGradient: ['#888888', '#666666'],
+    normalStroke: '#000000',
+    normalTriangle: '#000000',
+    textColor: '#000000',
+  };
 
   // Generar grid de hexágonos
   useEffect(() => {
@@ -86,7 +109,8 @@ export function HexagonBackground() {
         overflow: 'hidden',
         zIndex: 0,
         pointerEvents: 'none',
-        backgroundColor: '#F5F5F5',
+        backgroundColor: colors.background,
+        transition: 'background-color 0.3s ease',
       }}
     >
       <svg
@@ -99,36 +123,21 @@ export function HexagonBackground() {
         }}
       >
         <defs>
-          {/* Gradiente base - misma paleta que el sitio */}
+          {/* Gradiente base */}
           <linearGradient id="hexBaseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#E8E8E8" />
-            <stop offset="50%" stopColor="#F0F0F0" />
-            <stop offset="100%" stopColor="#F5F5F5" />
+            <stop offset="0%" stopColor={colors.baseGradient[0]} />
+            <stop offset="50%" stopColor={colors.baseGradient[1]} />
+            <stop offset="100%" stopColor={colors.baseGradient[2]} />
           </linearGradient>
 
-          {/* Gradiente hover - negro (invertido) */}
-          <linearGradient id="hexHoverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#000000" />
-            <stop offset="100%" stopColor="#1f1f1f" />
-          </linearGradient>
-
-          {/* Gradiente cercano - gris oscuro (invertido) */}
+          {/* Gradiente cercano */}
           <linearGradient id="hexNearGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#777777" />
-            <stop offset="100%" stopColor="#999999" />
+            <stop offset="0%" stopColor={colors.nearGradient[0]} />
+            <stop offset="100%" stopColor={colors.nearGradient[1]} />
           </linearGradient>
 
-          {/* Filtro de brillo negro */}
-          <filter id="blackGlow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="4" result="coloredBlur" />
-            <feMerge>
-              <feMergeNode in="coloredBlur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-
-          {/* Filtro de brillo gris */}
-          <filter id="grayGlow" x="-50%" y="-50%" width="200%" height="200%">
+          {/* Filtro de brillo */}
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="3" result="coloredBlur" />
             <feMerge>
               <feMergeNode in="coloredBlur" />
@@ -145,26 +154,26 @@ export function HexagonBackground() {
           const isActive = isHovered || isNear;
 
           let fill = 'url(#hexBaseGradient)';
-          let stroke = '#FFFFFF';
+          let stroke = colors.normalStroke;
           let strokeWidth = 1.5;
           let filter = '';
           let opacity = 0.7;
-          let textColor = '#FFFFFF';
+          let textColor = colors.textColor;
           let statusText = 'EMERGENCY';
 
           if (isHovered) {
-            fill = '#000000';
-            stroke = '#000000';
+            fill = colors.hoverFill;
+            stroke = colors.hoverStroke;
             strokeWidth = 2.5;
             filter = '';
             opacity = 1;
-            textColor = '#FFFFFF';
+            textColor = theme === 'light' ? '#FFFFFF' : '#000000';
             statusText = 'ALERT';
           } else if (isNear) {
             fill = 'url(#hexNearGradient)';
-            stroke = '#555555';
+            stroke = theme === 'light' ? '#555555' : '#aaaaaa';
             strokeWidth = 1.5;
-            filter = 'url(#grayGlow)';
+            filter = 'url(#glow)';
             opacity = 0.6 + intensity * 0.4;
             textColor = '#FFFFFF';
             statusText = 'ACTIVE';
@@ -217,14 +226,14 @@ export function HexagonBackground() {
                   <polygon
                     points="0,-18 -10,2 10,2"
                     fill="none"
-                    stroke="#FFFFFF"
+                    stroke={colors.normalTriangle}
                     strokeWidth="1.5"
                     opacity="0.6"
                   />
                   {/* Triángulo de advertencia abajo (invertido) */}
                   <polygon
                     points="0,22 -10,2 10,2"
-                    fill="#FFFFFF"
+                    fill={colors.normalTriangle}
                     opacity="0.4"
                   />
                   {/* Texto EMERGENCY */}
@@ -235,7 +244,7 @@ export function HexagonBackground() {
                     fontSize="6"
                     fontFamily="monospace"
                     fontWeight="bold"
-                    fill="#FFFFFF"
+                    fill={colors.normalTriangle}
                     opacity="0.6"
                   >
                     EMERGENCY

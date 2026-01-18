@@ -1,7 +1,23 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 export function AboutSection() {
+  const { theme } = useTheme();
+
+  const colors = theme === 'light' ? {
+    title: 'text-black',
+    cardBg: 'bg-white',
+    cardBorder: 'border-gray-200',
+    text: 'text-black',
+    divider: 'border-gray-200',
+  } : {
+    title: 'text-white',
+    cardBg: 'bg-black',
+    cardBorder: 'border-gray-700',
+    text: 'text-white',
+    divider: 'border-gray-700',
+  };
   
   // 1. Configuración del contenedor principal (Orquestador)
   const containerVariants = {
@@ -63,47 +79,47 @@ export function AboutSection() {
       viewport={{ once: true, amount: 0.3 }}
     >
       <motion.h2
-        variants={textVariants} // El título usa la variante de texto simple
-        className="font-mono text-center mb-12 text-black"
+        variants={textVariants}
+        className={`font-mono text-center mb-12 ${colors.title}`}
         style={{ fontSize: '32px' }}
       >
         About Me
       </motion.h2>
 
-      {/* La tarjeta blanca usa cardVariants para animarse ella misma y coordinar a sus hijos */}
-      <motion.div 
+      {/* La tarjeta usa cardVariants para animarse ella misma y coordinar a sus hijos */}
+      <motion.div
         variants={cardVariants}
-        className="bg-white p-8 md:p-12 border border-gray-200 shadow-sm"
+        className={`${colors.cardBg} p-8 md:p-12 border ${colors.cardBorder} shadow-sm transition-colors duration-300`}
       >
         <div className="space-y-6">
-          
+
           {/* Párrafo 1 */}
-          <motion.p variants={textVariants} className="font-mono text-black leading-relaxed">
-            I am a <strong>Systems Engineering student</strong> with a strong interest in 
-            software development and building practical, well-structured applications. 
-            This portfolio showcases my academic projects and my learning journey in 
+          <motion.p variants={textVariants} className={`font-mono ${colors.text} leading-relaxed`}>
+            I am a <strong>Systems Engineering student</strong> with a strong interest in
+            software development and building practical, well-structured applications.
+            This portfolio showcases my academic projects and my learning journey in
             web and mobile development.
           </motion.p>
 
           {/* Párrafo 2 */}
-          <motion.p variants={textVariants} className="font-mono text-black leading-relaxed">
+          <motion.p variants={textVariants} className={`font-mono ${colors.text} leading-relaxed`}>
             I enjoy working on both frontend and backend development, focusing on clean code,
-            clear structure, and maintainable solutions. I am especially interested in 
+            clear structure, and maintainable solutions. I am especially interested in
             learning industry best practices and improving through real-world projects
             and collaboration.
           </motion.p>
 
           {/* Párrafo 3 */}
-          <motion.p variants={textVariants} className="font-mono text-black leading-relaxed">
+          <motion.p variants={textVariants} className={`font-mono ${colors.text} leading-relaxed`}>
             I have experience working with technologies such as Angular, React, Spring Boot,
             and Android development with Jetpack Compose. All projects shown here were developed
             as part of my university studies and personal practice.
           </motion.p>
 
           {/* Sección final con borde */}
-          <motion.div variants={textVariants} className="pt-6 border-t border-gray-200">
-            <h3 className="font-mono text-black mb-4">What I Work With</h3>
-            <ul className="space-y-2 font-mono text-black">
+          <motion.div variants={textVariants} className={`pt-6 border-t ${colors.divider}`}>
+            <h3 className={`font-mono ${colors.text} mb-4`}>What I Work With</h3>
+            <ul className={`space-y-2 font-mono ${colors.text}`}>
               <li>• Web Application Development</li>
               <li>• Mobile Application Development</li>
               <li>• Frontend & Backend Fundamentals</li>

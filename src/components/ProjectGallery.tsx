@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Masonry from 'react-responsive-masonry';
 import { motion } from 'framer-motion';
 import { ImageWithFallback } from './figma/ImageWithFallback';
@@ -69,7 +69,7 @@ export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
 
   return (
     <div className="mb-16">
-      
+
       {/* ==============================================
           MÓVIL: Estilo SPLIT (Igual a PC) con Scroll Trigger
          ============================================== */}
@@ -102,13 +102,13 @@ export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
                   // Estado inicial: Oculto
                   initial={{ height: 0, opacity: 0 }}
                   // Trigger: Cuando esta parte del componente entra en pantalla (bottom)
-                  whileInView={{ 
-                    height: 'auto', 
-                    opacity: 1 
+                  whileInView={{
+                    height: 'auto',
+                    opacity: 1
                   }}
                   // Configuración clave: Se activa cuando el elemento está entrando bien en la pantalla
                   // 'amount: 0.1' significa que apenas asome el final, se dispara.
-                  viewport={{ amount: 0.1 }} 
+                  viewport={{ amount: 0.1 }}
                   transition={{ duration: 0.4, ease: 'easeOut' }}
                   className="bg-black shadow-md overflow-hidden rounded-b-lg"
                 >
@@ -170,7 +170,7 @@ export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
                 {/* Caja Detalles */}
                 <motion.div
                   initial={{ height: 0, opacity: 0 }}
-                  animate={{ 
+                  animate={{
                     height: showDetailsBox ? 'auto' : 0,
                     opacity: showDetailsBox ? 1 : 0
                   }}
