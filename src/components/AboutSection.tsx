@@ -1,22 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 
 export function AboutSection() {
   const { theme } = useTheme();
+  const [titleHovered, setTitleHovered] = useState(false);
 
   const colors = theme === 'light' ? {
-    title: 'text-black',
+    titleColor: '#000000',
     cardBg: 'bg-white',
     cardBorder: 'border-gray-200',
     text: 'text-black',
     divider: 'border-gray-200',
   } : {
-    title: 'text-white',
+    titleColor: '#FFFFFF',
     cardBg: 'bg-black',
     cardBorder: 'border-gray-700',
     text: 'text-white',
     divider: 'border-gray-700',
+  };
+
+  // Estilos del título con efecto glow intensificado
+  const titleGlowStyle = {
+    fontSize: '32px',
+    color: colors.titleColor,
+    cursor: 'default',
+    transition: 'all 0.3s ease',
+    textShadow: titleHovered
+      ? theme === 'light'
+        ? '0 0 10px #FFFFFF, 0 0 20px #FFFFFF, 0 0 30px #FFFFFF, 0 0 40px #FFFFFF, 0 0 50px rgba(255, 255, 255, 0.8), 0 0 60px rgba(255, 255, 255, 0.6), 0 0 70px rgba(255, 255, 255, 0.4)'
+        : '0 0 10px #000000, 0 0 20px #000000, 0 0 30px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 0, 0, 0.8), 0 0 50px rgba(0, 0, 0, 0.6), 0 0 60px rgba(0, 0, 0, 0.4)'
+      : 'none',
   };
   
   // 1. Configuración del contenedor principal (Orquestador)
@@ -80,8 +94,12 @@ export function AboutSection() {
     >
       <motion.h2
         variants={textVariants}
-        className={`font-mono text-center mb-12 ${colors.title}`}
-        style={{ fontSize: '32px' }}
+        className="font-mono text-center mb-12"
+        style={titleGlowStyle}
+        onMouseEnter={() => setTitleHovered(true)}
+        onMouseLeave={() => setTitleHovered(false)}
+        whileHover={{ scale: 1.05 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       >
         About Me
       </motion.h2>

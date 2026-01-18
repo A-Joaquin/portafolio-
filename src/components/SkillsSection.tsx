@@ -4,6 +4,7 @@ import { useTheme } from '../context/ThemeContext';
 
 export function SkillsSection() {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const [titleHovered, setTitleHovered] = useState(false);
   const { theme } = useTheme();
 
   const colors = theme === 'light' ? {
@@ -32,14 +33,34 @@ export function SkillsSection() {
     { name: 'C++', color: '#00599C', description: 'Intermediate: Experience with C++ for algorithm implementation, numerical methods, and performance-oriented programming.', svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.394 6c-.167-.29-.398-.543-.652-.69L12.926.22c-.509-.294-1.34-.294-1.848 0L2.26 5.31c-.508.293-.923 1.013-.923 1.6v10.18c0 .294.104.62.271.91.167.29.398.543.652.69l8.816 5.09c.508.293 1.34.293 1.848 0l8.816-5.09c.254-.147.485-.4.652-.69.167-.29.27-.616.27-.91V6.91c.003-.294-.1-.62-.268-.91zM12 19.11c-3.92 0-7.109-3.19-7.109-7.11 0-3.92 3.19-7.11 7.11-7.11a7.133 7.133 0 016.156 3.553l-3.076 1.78a3.567 3.567 0 00-3.08-1.78A3.56 3.56 0 008.444 12 3.56 3.56 0 0012 15.555a3.57 3.57 0 003.08-1.778l3.078 1.78A7.135 7.135 0 0112 19.11zm7.11-6.715h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79v.79zm2.962 0h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79v.79z"/></svg>' },
   ];
 
+  // Estilos del título con efecto glow intensificado
+  const titleGlowStyle = {
+    fontSize: '32px',
+    marginTop: '80px',
+    color: colors.title,
+    cursor: 'default',
+    transition: 'all 0.3s ease',
+    textShadow: titleHovered
+      ? theme === 'light'
+        ? '0 0 10px #FFFFFF, 0 0 20px #FFFFFF, 0 0 30px #FFFFFF, 0 0 40px #FFFFFF, 0 0 50px rgba(255, 255, 255, 0.8), 0 0 60px rgba(255, 255, 255, 0.6), 0 0 70px rgba(255, 255, 255, 0.4)'
+        : '0 0 10px #000000, 0 0 20px #000000, 0 0 30px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 0, 0, 0.8), 0 0 50px rgba(0, 0, 0, 0.6), 0 0 60px rgba(0, 0, 0, 0.4)'
+      : 'none',
+  };
+
   return (
     <section id="skills" className="mt-20">
-      <h2
+      <motion.h2
         className="font-mono text-center mb-12"
-        style={{ fontSize: '32px', marginTop: '80px', color: colors.title, transition: 'color 0.3s ease' }}
+        style={titleGlowStyle}
+        onMouseEnter={() => setTitleHovered(true)}
+        onMouseLeave={() => setTitleHovered(false)}
+        animate={{
+          scale: titleHovered ? 1.05 : 1,
+        }}
+        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       >
         Skills
-      </h2>
+      </motion.h2>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto px-4">
         {skills.map((skill) => {
