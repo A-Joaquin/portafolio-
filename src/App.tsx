@@ -6,23 +6,14 @@ import { ContactSection } from './components/ContactSection';
 import { AboutSection } from './components/AboutSection';
 import { HexagonBackground } from './components/HexagonBackground';
 import { ThemeToggle } from './components/ThemeToggle';
+import { LiquidFilterButtons } from './components/LiquidFilterButtons';
 import { useTheme } from './context/ThemeContext';
 
 export default function App() {
   const [activeFilter, setActiveFilter] = useState<string>('Frontend');
   const { theme } = useTheme();
 
-  const colors = theme === 'light' ? {
-    headerBg: 'rgb(255, 255, 255)',
-    buttonBorder: 'border-black',
-    buttonActive: 'bg-black text-white',
-    buttonInactive: 'bg-white text-black',
-  } : {
-    headerBg: 'rgb(0, 0, 0)',
-    buttonBorder: 'border-white',
-    buttonActive: 'bg-white text-black',
-    buttonInactive: 'bg-black text-white',
-  };
+  const headerBg = theme === 'light' ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)';
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen">
@@ -41,26 +32,17 @@ export default function App() {
         <div
           className="px-8 md:px-[60px] py-6"
           style={{
-            backgroundColor: colors.headerBg,
+            backgroundColor: headerBg,
             position: 'relative',
             zIndex: 5,
             transition: 'background-color 0.3s ease',
           }}
         >
-          <div className="flex flex-wrap gap-4">
-            {['Frontend', 'Backend', 'Student of Systems engineer'].map((filter) => (
-              <button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
-                className={`px-6 py-2 border ${colors.buttonBorder} font-mono text-sm transition-colors ${
-                  activeFilter === filter ? colors.buttonActive : colors.buttonInactive
-                }`}
-                style={{ borderRadius: '4px' }}
-              >
-                {filter}
-              </button>
-            ))}
-          </div>
+          <LiquidFilterButtons
+            filters={['Frontend', 'Backend', 'Student of Systems engineer']}
+            activeFilter={activeFilter}
+            onFilterChange={setActiveFilter}
+          />
         </div>
 
         {/* Main Content */}
