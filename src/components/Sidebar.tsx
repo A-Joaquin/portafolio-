@@ -1,7 +1,22 @@
+import { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
 
 export function Sidebar() {
   const { theme } = useTheme();
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Calcular al montar
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const colors = theme === 'light' ? {
     background: 'rgb(0, 0, 0)',
@@ -32,7 +47,7 @@ export function Sidebar() {
           transition: 'background-color 0.3s ease, color 0.3s ease',
         }}
       >
-        {/* Branding */}
+        {/* Branding con efecto de agua */}
         <div className="mb-12" style={{ marginBottom: '4.5rem' }}>
           <h1
             className="font-mono uppercase"
@@ -40,10 +55,34 @@ export function Sidebar() {
               letterSpacing: '0.1em',
               lineHeight: '1.3',
               fontSize: '2.3rem',
-              color: colors.text,
+              position: 'relative',
             }}
           >
-            ARTURO<br />VELIZ
+            {/* Texto con borde (outline) */}
+            <span
+              style={{
+                color: 'transparent',
+                WebkitTextStroke: '1px #ffffff',
+                position: 'relative',
+                display: 'block',
+              }}
+            >
+              ARTURO<br />VELIZ
+            </span>
+
+            {/* Texto relleno (el "agua" que sube) */}
+            <span
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                color: '#ffffff',
+                clipPath: `inset(${100 - scrollProgress}% 0 0 0)`,
+                transition: 'clip-path 0.1s ease-out',
+              }}
+            >
+              ARTURO<br />VELIZ
+            </span>
           </h1>
         </div>
 
