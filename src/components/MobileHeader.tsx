@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export function MobileHeader() {
   const [open, setOpen] = useState(false);
@@ -14,6 +14,28 @@ export function MobileHeader() {
       document.head.appendChild(styleEl);
     }
   }, []);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setOpen(false);
+
+    // Delay para que el menú se cierre primero
+    setTimeout(() => {
+      const element = document.getElementById(targetId);
+      if (element) {
+        // Calcular posición absoluta del elemento
+        const headerOffset = 80;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - headerOffset;
+
+        // Forzar scroll sin animación primero, luego suavizar
+        window.scrollTo(0, offsetPosition);
+      }
+    }, 200);
+  };
 
   return (
     <>
@@ -95,7 +117,7 @@ export function MobileHeader() {
               <a
                 href="#skills"
                 className="font-mono text-white no-underline"
-                onClick={() => setOpen(false)}
+                onClick={(e) => handleNavClick(e, 'skills')}
               >
                 Skills
               </a>
@@ -104,7 +126,7 @@ export function MobileHeader() {
               <a
                 href="#contacto"
                 className="font-mono text-white no-underline"
-                onClick={() => setOpen(false)}
+                onClick={(e) => handleNavClick(e, 'contacto')}
               >
                 Contact
               </a>
@@ -113,7 +135,7 @@ export function MobileHeader() {
               <a
                 href="#about"
                 className="font-mono text-white no-underline"
-                onClick={() => setOpen(false)}
+                onClick={(e) => handleNavClick(e, 'about')}
               >
                 About Me
               </a>

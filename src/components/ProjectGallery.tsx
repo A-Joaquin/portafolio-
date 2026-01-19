@@ -71,7 +71,7 @@ export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
     <div className="mb-16">
 
       {/* ==============================================
-          MÓVIL: Estilo SPLIT (Igual a PC) con Scroll Trigger
+          MÓVIL: Estilo SPLIT - Sin whileInView para evitar conflictos con navegación
          ============================================== */}
       <div className="block md:hidden">
         <Masonry columnsCount={1} gutter="24px">
@@ -79,17 +79,13 @@ export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
             const isSelected = selectedProject === project.id;
 
             return (
-              <motion.div
+              <div
                 key={project.id}
-                layout
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "50px" }}
                 onClick={() => handleProjectClick(project.id)}
                 className="cursor-pointer group"
               >
-                {/* 1. IMAGEN (Limpia, sin oscurecer) */}
-                <div className={`relative overflow-hidden shadow-md transition-all duration-300 rounded-t-lg`}>
+                {/* 1. IMAGEN */}
+                <div className="relative overflow-hidden shadow-md transition-all duration-300 rounded-t-lg">
                   <ImageWithFallback
                     src={project.image}
                     alt={project.alt}
@@ -97,40 +93,22 @@ export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
                   />
                 </div>
 
-                {/* 2. CAJA DE DETALLES (Aparece al llegar al final) */}
-                <motion.div
-                  // Estado inicial: Oculto
-                  initial={{ height: 0, opacity: 0 }}
-                  // Trigger: Cuando esta parte del componente entra en pantalla (bottom)
-                  whileInView={{
-                    height: 'auto',
-                    opacity: 1
-                  }}
-                  // Configuración clave: Se activa cuando el elemento está entrando bien en la pantalla
-                  // 'amount: 0.1' significa que apenas asome el final, se dispara.
-                  viewport={{ amount: 0.1 }}
-                  transition={{ duration: 0.4, ease: 'easeOut' }}
-                  className="bg-black shadow-md overflow-hidden rounded-b-lg"
-                >
+                {/* 2. CAJA DE DETALLES - Siempre visible en móvil */}
+                <div className="bg-black shadow-md overflow-hidden rounded-b-lg">
                   <div className="p-4 flex flex-col items-center justify-center text-center">
                     {isSelected ? (
-                      // Contenido al hacer CLICK (Expandido)
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                      >
+                      <div>
                         <h3 className="text-white text-xl font-bold mb-2">{project.title}</h3>
                         <p className="text-white text-white/90 text-sm">{project.description}</p>
-                      </motion.div>
+                      </div>
                     ) : (
-                      // Contenido por defecto (aparece con el scroll)
                       <p className="text-white font-medium border-b border-white pb-1 inline-block">
                         Haz click para detalles
                       </p>
                     )}
                   </div>
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
             );
           })}
         </Masonry>
