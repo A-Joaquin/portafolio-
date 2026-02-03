@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 
 export function Sidebar() {
   const { theme } = useTheme();
+  const { t } = useLanguage();
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
@@ -93,21 +95,21 @@ export function Sidebar() {
             className="font-mono no-underline hover:opacity-70 transition-opacity text-lg"
             style={{ color: colors.text }}
           >
-            Skills
+            {t('nav.skills')}
           </a>
           <a
             href="#contacto"
             className="font-mono no-underline hover:opacity-70 transition-opacity text-lg"
             style={{ color: colors.text }}
           >
-            Contact
+            {t('nav.contact')}
           </a>
           <a
             href="#about"
             className="font-mono no-underline hover:opacity-70 transition-opacity text-lg"
             style={{ color: colors.text }}
           >
-            About Me
+            {t('nav.aboutMe')}
           </a>
         </nav>
       </div>

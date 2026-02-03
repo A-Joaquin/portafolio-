@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 export function MobileHeader() {
   const [open, setOpen] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const css = `@media (max-width: 768px){body{padding-top:64px!important;}aside{display:none!important;}}`;
@@ -119,7 +121,7 @@ export function MobileHeader() {
                 className="font-mono text-white no-underline"
                 onClick={(e) => handleNavClick(e, 'skills')}
               >
-                Skills
+                {t('nav.skills')}
               </a>
             </li>
             <li style={{ marginBottom: '12px' }}>
@@ -128,7 +130,7 @@ export function MobileHeader() {
                 className="font-mono text-white no-underline"
                 onClick={(e) => handleNavClick(e, 'contacto')}
               >
-                Contact
+                {t('nav.contact')}
               </a>
             </li>
             <li>
@@ -137,7 +139,7 @@ export function MobileHeader() {
                 className="font-mono text-white no-underline"
                 onClick={(e) => handleNavClick(e, 'about')}
               >
-                About Me
+                {t('nav.aboutMe')}
               </a>
             </li>
           </ul>

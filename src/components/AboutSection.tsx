@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 
 export function AboutSection() {
   const { theme } = useTheme();
+  const { t } = useLanguage();
   const [titleHovered, setTitleHovered] = useState(false);
 
   const colors = theme === 'light' ? {
@@ -101,7 +103,7 @@ export function AboutSection() {
         whileHover={{ scale: 1.05 }}
         transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       >
-        About Me
+        {t('about.title')}
       </motion.h2>
 
       {/* La tarjeta usa cardVariants para animarse ella misma y coordinar a sus hijos */}
@@ -112,36 +114,34 @@ export function AboutSection() {
         <div className="space-y-6">
 
           {/* Párrafo 1 */}
-          <motion.p variants={textVariants} className={`font-mono ${colors.text} leading-relaxed`}>
-            I am a <strong>Systems Engineering student</strong> with a strong interest in
-            software development and building practical, well-structured applications.
-            This portfolio showcases my academic projects and my learning journey in
-            web and mobile development.
-          </motion.p>
+          <motion.p
+            variants={textVariants}
+            className={`font-mono ${colors.text} leading-relaxed`}
+            dangerouslySetInnerHTML={{ __html: t('about.p1') }}
+          />
 
           {/* Párrafo 2 */}
-          <motion.p variants={textVariants} className={`font-mono ${colors.text} leading-relaxed`}>
-            I enjoy working on both frontend and backend development, focusing on clean code,
-            clear structure, and maintainable solutions. I am especially interested in
-            learning industry best practices and improving through real-world projects
-            and collaboration.
-          </motion.p>
+          <motion.p
+            variants={textVariants}
+            className={`font-mono ${colors.text} leading-relaxed`}
+            dangerouslySetInnerHTML={{ __html: t('about.p2') }}
+          />
 
           {/* Párrafo 3 */}
-          <motion.p variants={textVariants} className={`font-mono ${colors.text} leading-relaxed`}>
-            I have experience working with technologies such as Angular, React, Spring Boot,
-            and Android development with Jetpack Compose. All projects shown here were developed
-            as part of my university studies and personal practice.
-          </motion.p>
+          <motion.p
+            variants={textVariants}
+            className={`font-mono ${colors.text} leading-relaxed`}
+            dangerouslySetInnerHTML={{ __html: t('about.p3') }}
+          />
 
           {/* Sección final con borde */}
           <motion.div variants={textVariants} className={`pt-6 border-t ${colors.divider}`}>
-            <h3 className={`font-mono ${colors.text} mb-4`}>What I Work With</h3>
+            <h3 className={`font-mono ${colors.text} mb-4`}>{t('about.whatIWorkWith')}</h3>
             <ul className={`space-y-2 font-mono ${colors.text}`}>
-              <li>• Web Application Development</li>
-              <li>• Mobile Application Development</li>
-              <li>• Frontend & Backend Fundamentals</li>
-              <li>• Clean Code & Software Structure</li>
+              <li>• {t('about.webDev')}</li>
+              <li>• {t('about.mobileDev')}</li>
+              <li>• {t('about.fullstack')}</li>
+              <li>• {t('about.cleanCode')}</li>
             </ul>
           </motion.div>
 

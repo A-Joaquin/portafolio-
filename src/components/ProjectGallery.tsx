@@ -2,47 +2,48 @@ import { useState } from 'react';
 import Masonry from 'react-responsive-masonry';
 import { motion } from 'framer-motion';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { useLanguage } from '../context/LanguageContext';
 
 const projects = [
   {
     id: 1,
     image: '/imagenesProyectos/5.jpg',
     alt: 'LMS NEWSCHOOL',
-    title: 'LMS NEWSCHOOL',
-    description: 'A LEARNING MANAGEMENT SYSTEM (LMS) FOR ONLINE EDUCATION',
-    categories: ['Student of Systems engineer', 'Backend']
+    titleKey: 'gallery.lmsTitle',
+    descriptionKey: 'gallery.lmsDesc',
+    categories: ['student', 'backend']
   },
   {
     id: 2,
     image: '/imagenesProyectos/6.jpg',
     alt: 'LMS NEWSCHOOL',
-    title: 'LMS NEWSCHOOL',
-    description: 'A LEARNING MANAGEMENT SYSTEM (LMS) FOR ONLINE EDUCATION',
-    categories: ['Student of Systems engineer', 'Backend']
+    titleKey: 'gallery.lmsTitle',
+    descriptionKey: 'gallery.lmsDesc',
+    categories: ['student', 'backend']
   },
   {
     id: 3,
     image: '/imagenesProyectos/10.jpg',
     alt: 'LMS NEWSCHOOL',
-    title: 'LMS NEWSCHOOL',
-    description: 'A LEARNING MANAGEMENT SYSTEM (LMS) FOR ONLINE EDUCATION',
-    categories: ['Student of Systems engineer', 'Backend']
+    titleKey: 'gallery.lmsTitle',
+    descriptionKey: 'gallery.lmsDesc',
+    categories: ['student', 'backend']
   },
   {
     id: 4,
     image: '/imagenesProyectos/unnamed..jpg',
     alt: 'App gusto total menu',
-    title: 'Menu app gusto total',
-    description: 'App menu design for Gusto Total restaurant',
-    categories: ['Student of Systems engineer', 'Frontend']
+    titleKey: 'gallery.gustoMenuTitle',
+    descriptionKey: 'gallery.gustoMenuDesc',
+    categories: ['student', 'frontend']
   },
   {
     id: 5,
     image: '/imagenesProyectos/unnamed.jpg',
     alt: 'App gusto total menu',
-    title: 'Settings app gusto total',
-    description: 'app gusto total settings',
-    categories: ['Student of Systems engineer', 'Frontend']
+    titleKey: 'gallery.gustoSettingsTitle',
+    descriptionKey: 'gallery.gustoSettingsDesc',
+    categories: ['student', 'frontend']
   }
 ];
 
@@ -53,6 +54,7 @@ interface ProjectGalleryProps {
 export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const { t } = useLanguage();
 
   const sortedProjects = [...projects].sort((a, b) => {
     const aHasCategory = a.categories.includes(activeFilter);
@@ -98,12 +100,12 @@ export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
                   <div className="p-4 flex flex-col items-center justify-center text-center">
                     {isSelected ? (
                       <div>
-                        <h3 className="text-white text-xl font-bold mb-2">{project.title}</h3>
-                        <p className="text-white text-white/90 text-sm">{project.description}</p>
+                        <h3 className="text-white text-xl font-bold mb-2">{t(project.titleKey)}</h3>
+                        <p className="text-white text-white/90 text-sm">{t(project.descriptionKey)}</p>
                       </div>
                     ) : (
                       <p className="text-white font-medium border-b border-white pb-1 inline-block">
-                        Haz click para detalles
+                        {t('gallery.clickForDetails')}
                       </p>
                     )}
                   </div>
@@ -158,12 +160,12 @@ export function ProjectGallery({ activeFilter }: ProjectGalleryProps) {
                   <div className="p-4 flex flex-col items-center justify-center text-center">
                     {isSelected ? (
                       <>
-                        <h3 className="text-white text-xl font-bold mb-2">{project.title}</h3>
-                        <p className="text-white text-white/90 text-sm">{project.description}</p>
+                        <h3 className="text-white text-xl font-bold mb-2">{t(project.titleKey)}</h3>
+                        <p className="text-white text-white/90 text-sm">{t(project.descriptionKey)}</p>
                       </>
                     ) : (
                       <p className="text-white font-medium border-b border-white pb-1 inline-block">
-                        Haz click para detalles
+                        {t('gallery.clickForDetails')}
                       </p>
                     )}
                   </div>

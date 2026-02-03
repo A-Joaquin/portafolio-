@@ -2,8 +2,13 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 
+interface Filter {
+  key: string;
+  label: string;
+}
+
 interface LiquidFilterButtonsProps {
-  filters: string[];
+  filters: Filter[];
   activeFilter: string;
   onFilterChange: (filter: string) => void;
 }
@@ -37,8 +42,8 @@ export function LiquidFilterButtons({ filters, activeFilter, onFilterChange }: L
       {/* Botones */}
       {filters.map((filter) => (
         <motion.button
-          key={filter}
-          onClick={() => handleFilterClick(filter)}
+          key={filter.key}
+          onClick={() => handleFilterClick(filter.key)}
           className={`px-6 py-2 border ${colors.buttonBorder} font-mono text-sm`}
           style={{
             borderRadius: '4px',
@@ -51,7 +56,7 @@ export function LiquidFilterButtons({ filters, activeFilter, onFilterChange }: L
           whileTap={{ scale: 0.95 }}
         >
           {/* Fondo del botón activo con layoutId para animación fluida */}
-          {activeFilter === filter && (
+          {activeFilter === filter.key && (
             <motion.div
               layoutId="liquid-background"
               style={{
@@ -71,11 +76,11 @@ export function LiquidFilterButtons({ filters, activeFilter, onFilterChange }: L
             style={{
               position: 'relative',
               zIndex: 2,
-              color: activeFilter === filter ? colors.activeText : colors.inactiveText,
+              color: activeFilter === filter.key ? colors.activeText : colors.inactiveText,
               transition: 'color 0.2s ease',
             }}
           >
-            {filter}
+            {filter.label}
           </span>
         </motion.button>
       ))}

@@ -6,14 +6,24 @@ import { ContactSection } from './components/ContactSection';
 import { AboutSection } from './components/AboutSection';
 import { HexagonBackground } from './components/HexagonBackground';
 import { ThemeToggle } from './components/ThemeToggle';
+import { LanguageToggle } from './components/LanguageToggle';
 import { LiquidFilterButtons } from './components/LiquidFilterButtons';
 import { useTheme } from './context/ThemeContext';
+import { useLanguage } from './context/LanguageContext';
 
 export default function App() {
-  const [activeFilter, setActiveFilter] = useState<string>('Frontend');
+  const [activeFilter, setActiveFilter] = useState<string>('frontend');
   const { theme } = useTheme();
+  const { t } = useLanguage();
 
   const headerBg = theme === 'light' ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)';
+
+  // Filtros con sus claves de traducción
+  const filters = [
+    { key: 'frontend', label: t('filter.frontend') },
+    { key: 'backend', label: t('filter.backend') },
+    { key: 'student', label: t('filter.student') },
+  ];
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen">
@@ -22,6 +32,9 @@ export default function App() {
 
       {/* Theme Toggle Button */}
       <ThemeToggle />
+
+      {/* Language Toggle Button */}
+      <LanguageToggle />
 
       {/* Sidebar */}
       <Sidebar />
@@ -39,7 +52,7 @@ export default function App() {
           }}
         >
           <LiquidFilterButtons
-            filters={['Frontend', 'Backend', 'Student of Systems engineer']}
+            filters={filters}
             activeFilter={activeFilter}
             onFilterChange={setActiveFilter}
           />
